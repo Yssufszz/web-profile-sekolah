@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <!-- Essential Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <!-- Primary Meta Tags -->
+  <title>Sekolah App - Aplikasi Manajemen Sekolah Modern</title>
+  <meta name="title" content="Sekolah App - Aplikasi Manajemen Sekolah Modern" />
+  <meta name="description" content="Aplikasi manajemen sekolah modern dengan React dan Supabase untuk mengelola siswa, guru, kelas, dan administrasi sekolah dengan mudah dan efisien." />
+  <meta name="keywords" content="sekolah, education, react, supabase, management, sistem informasi sekolah, pendidikan, admin sekolah, indonesia" />
+  <meta name="author" content="Yssufsz-Yusuf S" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="Indonesian" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sekolah-app.com/" />
+  <meta property="og:title" content="Sekolah App - Aplikasi Manajemen Sekolah Modern" />
+  <meta property="og:description" content="Aplikasi manajemen sekolah modern dengan React dan Supabase untuk mengelola siswa, guru, kelas, dan administrasi sekolah dengan mudah dan efisien." />
+  <meta property="og:image" content="/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Sekolah App" />
+  <meta property="og:locale" content="id_ID" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://sekolah-app.com/" />
+  <meta property="twitter:title" content="Sekolah App - Aplikasi Manajemen Sekolah Modern" />
+  <meta property="twitter:description" content="Aplikasi manajemen sekolah modern dengan React dan Supabase untuk mengelola siswa, guru, kelas, dan administrasi sekolah dengan mudah dan efisien." />
+  <meta property="twitter:image" content="/og.png" />
+  
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/public/image/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/public/image/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/public/image/favicon-16x16.png" />
+  <link rel="manifest" href="/public/image/site.webmanifest" />
+  <link rel="shortcut icon" href="/public/image/favicon.ico" />
+  
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#2563eb" />
+  <meta name="msapplication-TileColor" content="#2563eb" />
+  <meta name="msapplication-config" content="/browserconfig.xml" />
+  
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Styles for loading screen -->
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #1e40af;
+      --accent-color: #3b82f6;
+      --text-color: #1f2937;
+      --bg-color: #ffffff;
+      --loading-bg: #f8fafc;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    #root {
+      min-height: 100vh;
+    }
+    
+    /* Loading Screen Styles */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+    }
+    
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    .loading-logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+    
+    .loading-text {
+      color: white;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 30px;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    .loading-progress {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      text-align: center;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .loading-text {
+        font-size: 20px;
+        padding: 0 20px;
+      }
+      
+      .loading-logo {
+        width: 60px;
+        height: 60px;
+      }
+    }
+    
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-color: #f9fafb;
+        --bg-color: #111827;
+        --loading-bg: #1f2937;
+      }
+    }
+    
+    /* Improved accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .loading-spinner,
+      .loading-logo {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <img src="/public/image/favicon.ico" alt="Sekolah App Logo" class="loading-logo" />
+    <div class="loading-text">Sekolah App</div>
+    <div class="loading-spinner"></div>
+    <div class="loading-progress">
+      <div>Memuat aplikasi manajemen sekolah...</div>
+    </div>
+  </div>
+
+  <!-- Main Application -->
+  <div id="root"></div>
+  
+  <!-- Scripts -->
+  <script>
+    // Hide loading screen when app loads
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+          loadingScreen.classList.add('hidden');
+          setTimeout(() => loadingScreen.remove(), 500);
+        }
+      }, 1000);
+    });
+    
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(registration) {
+            console.log('SW registered: ', registration);
+          })
+          .catch(function(registrationError) {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+    
+    // Performance monitoring
+    if ('PerformanceObserver' in window) {
+      const observer = new PerformanceObserver((list) => {
+        list.getEntries().forEach((entry) => {
+          if (entry.entryType === 'navigation') {
+            console.log('Page load time:', entry.loadEventEnd - entry.loadEventStart);
+          }
+        });
+      });
+      observer.observe({ entryTypes: ['navigation'] });
+    }
+    
+    // Error handling
+    window.addEventListener('error', function(e) {
+      console.error('Global error:', e.error);
+      // You can send this to your error tracking service
+    });
+    
+    window.addEventListener('unhandledrejection', function(e) {
+      console.error('Unhandled promise rejection:', e.reason);
+      // You can send this to your error tracking service
+    });
+  </script>
+  
+  <script type="module" src="/src/main.jsx"></script>
+  
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Sekolah App",
+    "description": "Aplikasi manajemen sekolah modern dengan React dan Supabase untuk mengelola siswa, guru, kelas, dan administrasi sekolah dengan mudah dan efisien.",
+    "url": "https://sekolah-app.com",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web Browser",
+    "programmingLanguage": "JavaScript",
+    "runtimePlatform": "React",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "IDR"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Yssufsz-Yusuf S"
+    },
+    "version": "1.0.0",
+    "license": "MIT"
+  }
+  </script>
+</body>
+</html>
